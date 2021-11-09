@@ -421,7 +421,7 @@ $pageContents = <<< EOPAGE
 		</head>
 
 		<body>
-		<div id="head">
+		<header id="head">
 			<div class="innerhead">
 				<h1>
 					<abbr title="Windows">W</abbr>
@@ -444,7 +444,7 @@ $pageContents = <<< EOPAGE
 				<li>Version ${c_wampVersion} - ${c_wampMode}</li>
 				<li>${langueswitcher}${styleswitcher}</li>
 			</ul>
-		</div>
+		</header>
 
 		<div class="config">
 			<div class="innerconfig">
