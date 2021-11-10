@@ -512,151 +512,31 @@ EOFHOSTS;
 	}
 }
 
+$styleswitcher = '<select id="themes">'."\n";
+$themes = glob('wampthemes/*', GLOB_ONLYDIR);
+foreach ($themes as $theme) {
+    if (file_exists($theme.'/style.css')) {
+        $theme = str_replace('wampthemes/', '', $theme);
+        $styleswitcher .= '<option id="'.$theme.'">'.$theme.'</option>'."\n";
+    }
+}
+$styleswitcher .= '</select>'."\n";
+
 $pageContents = <<< EOPAGE
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
 		<title>Ajouter un "Virtual Host"</title>
 		<meta charset="UTF-8">
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-			}
-
-			html {
-				background: #ddd;
-			}
-			body {
-				margin: 1em 5%;
-				padding: 1em 3em;
-				font: 80%/1.4 tahoma, arial, helvetica, lucida sans, sans-serif;
-				border: 1px solid #999;
-				background: #eee;
-				position: relative;
-			}
-			header {
-				margin-bottom: 1.8em;
-				margin-top: .5em;
-				padding-bottom: 0em;
-				border-bottom: 1px solid #999;
-				height: 125px;
-				background: url('img/gifLogo.gif') 0 0 no-repeat;
-			}
-
-			header h1 {
-				padding-left: 130px;
-				padding-top: 15px;
-				font-size: 1.8em;
-			}
-
-			header h1 a:hover {color:blue;}
-
-			h2 {
-				margin: 0.8em 0 0 0;
-			}
-
-			p {
-				padding: 1%;
-			}
-
-			.ok, .ok_plus, .warning, .warning_auto {
-				text-align: center;
-				font-size: 1.3em;
-				text-shadow: 1px 1px 0 #000;
-				background: #585858;
-			}
-
-			.ok {
-				color: limegreen;
-			}
-			.ok_plus {
-				text-align:justify;
-				background: #777777;
-			}
-
-			.warning, .warning_auto, .ok_plus {
-				color: orange;
-			}
-			.warning_auto {
-				border: 3px solid #4FEF10;
-			}
-			label {
-				padding-left: 22px;
-				margin-left: 22px;
-				background: url('img/pngWrench.png') 0 100% no-repeat;
-			}
-
-			input[type="text"] {
-				width: 80%;
-				margin: 0.2% 1% 1% 1%;
-				padding: 0.3% 1%;
-				border: 1px solid #999;
-			}
-			input.required {
-				border:1px solid red;
-			}
-			input.optional {
-				border:1px solid green;
-			}
-			input[type="submit"] {
-				min-width: 50%;
-				background: #DDD;
-				border: 1px solid #999;
-				margin: 1%;
-				padding: 0.3% 1%;
-			}
-
-			input[type="checkbox"] {
-				vertical-align: middle;
-			}
-
-			input[type="submit"]:hover {
-				background: #FF0099;
-				color: #FFF;
-			}
-
-			pre {
-				width: 98%;
-				overflow: auto;
-				padding: 1%;
-				border: #FF0099 1px solid;
-				background: #585858;
-			}
-
-			a {
-				color: #000;
-				text-decoration: none;
-			}
-
-			code, code.option, code.requis {
-				color: #FFF;
-				text-shadow: 1px 1px 0 #000;
-				padding: 0.1% 0.5%;
-				border-radius: 3px;
-				background: #585858;
-				font-size: 1.2em;
-			}
-			code.option {
-				background: green;
-			}
-			code.requis {
-				background: red;
-			}
-			.utility {
-				position: absolute;
-				right: 4em;
-				top: 122px;
-				font-size: 0.85em;
-			}
-		</style>
+		<link id="stylecall" rel="stylesheet" href="wampthemes/classic/add_vhost.css" />
+		<script defer src="themeswitch.js"></script>
 	</head>
 	<body>
 	<header>
 		<h1><a href="add_vhost.php?lang={$langue}">{$langues['addVirtual']}</a> - <a href="index.php?lang={$langue}">{$langues['backHome']}</a></h1>
 		<ul class="utility">
-		  <li>Version ${c_wampVersion} - ${c_wampMode}${langueswitcher}</li>
-	  </ul>
+		  <li>Version ${c_wampVersion} - ${c_wampMode}${langueswitcher} ${styleswitcher}</li>
+	  	</ul>
 	</header>
 EOPAGE;
 
@@ -734,7 +614,7 @@ EOPAGEB;
 EOPAGEB;
 }
 $pageContents .= <<< EOPAGEB
-</body>
+	</body>
 </html>
 EOPAGEB;
 echo $pageContents;

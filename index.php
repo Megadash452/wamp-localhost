@@ -69,7 +69,7 @@ $langue = $wampConf['language'];
 $i_langues = glob('wamplangues/index_*.php');
 $languages = array();
 foreach ($i_langues as $value) {
-  $languages[] = str_replace(array('wamplangues/index_','.php'), '', $value);
+  	$languages[] = str_replace(array('wamplangues/index_','.php'), '', $value);
 }
 $langueget = (!empty($_GET['lang']) ? strip_tags(trim($_GET['lang'])) : '');
 if(in_array($langueget,$languages))
@@ -104,7 +104,7 @@ if(isset($wampConf['SupportMySQL']) && $wampConf['SupportMySQL'] =='on') {
 	$nbDBMS++;
 	$defaultDBMSMySQL = ($wampConf['mysqlPortUsed'] == '3306') ? "&nbsp;-&nbsp;".$langues['defaultDBMS'] : "";
 	$MySQLdb = <<< EOF
-<dt>{$langues['versm']}</dt>
+		<dt>{$langues['versm']}</dt>
 	<dd>${mysqlVersion}&nbsp;-&nbsp;{$langues['mysqlportUsed']}{$Mysqlport}{$defaultDBMSMySQL}&nbsp;-&nbsp; <a href='http://{$langues['docm']}'>{$langues['documentation']} MySQL</a></dd>
 EOF;
 }
@@ -409,18 +409,19 @@ if($filelist = php_ini_scanned_files()) {
 }
 
 $pageContents = <<< EOPAGE
-	<!DOCTYPE html>
-	<html>
-		<head>
-			<title>{$langues['titreHtml']}</title>
-			<meta charset="UTF-8">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-			<meta name="viewport" content="width=device-width">
-			<link id="stylecall" rel="stylesheet" href="wampthemes/classic/style.css" />
-			<link rel="shortcut icon" href="favicon.ico" type="image/ico" />
-		</head>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{$langues['titreHtml']}</title>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width">
+		<link id="stylecall" rel="stylesheet" href="wampthemes/classic/style.css" />
+		<script defer src="themeswitch.js"></script>
+		<link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+	</head>
 
-		<body>
+	<body>
 		<header id="head">
 			<div class="innerhead">
 				<h1>
@@ -446,52 +447,52 @@ $pageContents = <<< EOPAGE
 			</ul>
 		</header>
 
-		<div class="config">
-			<div class="innerconfig">
-				<h2> {$langues['titreConf']} </h2>
+	<div class="config">
+		<div class="innerconfig">
+			<h2> {$langues['titreConf']} </h2>
 
-				<dl class="content">
-					<dt>{$langues['versa']}</dt>
-						<dd>${apacheVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues[$doca_version]}'>{$langues['documentation']}</a></dd>
-					<dt>{$langues['server']}</dt>
-						<dd>${server_software}&nbsp;-&nbsp;{$langues['portUsed']}{$ListenPorts}</dd>
-					<dt>{$langues['versp']}</dt>
-						<dd>${phpVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues['docp']}'>{$langues['documentation']}</a></dd>
-					<dt>{$langues['phpExt']}</dt>
-					<dd>
-						<ul>
-							${phpExtContents}
-						</ul>
-					</dd>
-					${DBMSTypes}
-				</dl>
-			</div>
+			<dl class="content">
+				<dt>{$langues['versa']}</dt>
+					<dd>${apacheVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues[$doca_version]}'>{$langues['documentation']}</a></dd>
+				<dt>{$langues['server']}</dt>
+					<dd>${server_software}&nbsp;-&nbsp;{$langues['portUsed']}{$ListenPorts}</dd>
+				<dt>{$langues['versp']}</dt>
+					<dd>${phpVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues['docp']}'>{$langues['documentation']}</a></dd>
+				<dt>{$langues['phpExt']}</dt>
+				<dd>
+					<ul>
+						${phpExtContents}
+					</ul>
+				</dd>
+				${DBMSTypes}
+			</dl>
 		</div>
+	</div>
 
-		<div class="divider1">&nbsp;</div>
+	<div class="divider1">&nbsp;</div>
 
-		<div class="alltools ${allToolsClass}">
-			<div class="inneralltools">
-				<div class="column">
-					<h2>{$langues['titrePage']}</h2>
-					<ul class="tools">
-						<li><a href="?phpinfo=-1">phpinfo()</a></li>
-						{$phpmyadminTool}
-						{$addVhost}
-					</ul>
-				</div>
-				<div class="column">
-					<h2>{$langues['txtProjet']}</h2>
-					<ul class="projects">
-						${projectContents}
-					</ul>
-				</div>
-				<div class="column">
-					<h2>{$langues['txtAlias']}</h2>
-					<ul class="aliases">
-						${aliasContents}
-					</ul>
-				</div>
+	<div class="alltools ${allToolsClass}">
+		<div class="inneralltools">
+			<div class="column">
+				<h2>{$langues['titrePage']}</h2>
+				<ul class="tools">
+					<li><a href="?phpinfo=-1">phpinfo()</a></li>
+					{$phpmyadminTool}
+					{$addVhost}
+				</ul>
+			</div>
+			<div class="column">
+				<h2>{$langues['txtProjet']}</h2>
+				<ul class="projects">
+					${projectContents}
+				</ul>
+			</div>
+			<div class="column">
+				<h2>{$langues['txtAlias']}</h2>
+				<ul class="aliases">
+					${aliasContents}
+				</ul>
+			</div>
 EOPAGE;
 
 if($VirtualHostMenu == "on") {
@@ -521,33 +522,6 @@ $pageContents .= <<< EOPAGEC
 		<ul id="foot">
 			<li><a href="{$langues['forumLink']}">{$langues['forum']}</a></li>
 		</ul>
-
-		<script>
-			var select = document.getElementById("themes");
-			if (select.addEventListener) {
-				/* Only for modern browser and IE > 9 */
-				var stylecall = document.getElementById("stylecall");
-				/* looking for stored style name */
-				var wampStyle = localStorage.getItem("wampStyle");
-				if (wampStyle !== null) {
-					stylecall.setAttribute("href", "wampthemes/" + wampStyle + "/style.css");
-					selectedOption = document.getElementById(wampStyle);
-					selectedOption.setAttribute("selected", "selected");
-				}
-				else {
-					localStorage.setItem("wampStyle","classic");
-					selectedOption = document.getElementById("classic");
-					selectedOption.setAttribute("selected", "selected");
-				}
-				/* Changing style when select change */
-
-				select.addEventListener("change", function(){
-					var styleName = this.value;
-					stylecall.setAttribute("href", "wampthemes/" + styleName + "/style.css");
-					localStorage.setItem("wampStyle", styleName);
-				})
-			}
-		</script>
 	</body>
 </html>
 EOPAGEC;

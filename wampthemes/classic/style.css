@@ -24,6 +24,10 @@ abbr {
 	text-decoration:none;
 }
 
+header .innerhead h1 {
+	display: flex;
+}
+
 .innerhead {
 	margin-bottom: 1.8em;
 	margin-top: 1.8em;
