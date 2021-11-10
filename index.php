@@ -472,7 +472,7 @@ $pageContents = <<< EOPAGE
 				</div>
 			</div>
 
-			<hr>
+			<div class="divider1">&nbsp;</div>
 
 			<div class="alltools ${allToolsClass}">
 				<div class="inneralltools">
@@ -520,7 +520,7 @@ $pageContents .= <<< EOPAGEC
 				</div>
 			</div>
 
-			<hr class="invisible">
+			<div class="divider2">&nbsp;</div>
 
 			<ul id="foot">
 				<li><a href="{$langues['forumLink']}">{$langues['forum']}</a></li>

@@ -40,13 +40,13 @@ body > .wrapper {
 	overflow-y: auto;
 }
 
-hr {
+hr, .divider1, .divider2 {
 	height: 1px;
 	margin: 11.458px 0;
 	border: none;
 	background-color: var(--col-secondary);
 }
-hr.invisible {
+hr.invisible, .divider2 {
 	background-color: #0000;
 }
 
