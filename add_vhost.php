@@ -529,7 +529,7 @@ $pageContents = <<< EOPAGE
 		<title>Ajouter un "Virtual Host"</title>
 		<meta charset="UTF-8">
 		<link id="stylecall" rel="stylesheet" href="wampthemes/classic/add_vhost.css" />
-		<script defer src="themeswitch.js"></script>
+		
 	</head>
 	<body>
 	<header>
@@ -614,6 +614,33 @@ EOPAGEB;
 EOPAGEB;
 }
 $pageContents .= <<< EOPAGEB
+		<script defer>
+			var select = document.getElementById("themes");
+			if (select.addEventListener) {
+				/* Only for modern browser and IE > 9 */
+				var stylecall = document.getElementById("stylecall");
+
+				/* looking for stored style name */
+				var wampStyle = localStorage.getItem("wampStyle");
+
+				if (wampStyle !== null) {
+					stylecall.setAttribute("href", "wampthemes/" + wampStyle + "/add_vhost.css");
+					selectedOption = document.getElementById(wampStyle);
+					selectedOption.setAttribute("selected", "selected");
+				} else {
+					localStorage.setItem("wampStyle","classic");
+					selectedOption = document.getElementById("classic");
+					selectedOption.setAttribute("selected", "selected");
+				}
+				/* Changing style when select change */
+
+				select.addEventListener("change", function(){
+					var styleName = this.value;
+					stylecall.setAttribute("href", "wampthemes/" + styleName + "/add_vhost.css");
+					localStorage.setItem("wampStyle", styleName);
+				})
+			}
+		</script>
 	</body>
 </html>
 EOPAGEB;

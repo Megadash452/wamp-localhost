@@ -55,8 +55,34 @@ if (isset($_GET['phpinfo'])) {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width">
 		<link id="stylecall" rel="stylesheet" href="wampthemes/classic/style.css" />
-		<script defer src="themeswitch.js"></script>
 		<link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+		<script defer>
+			var select = document.getElementById("themes");
+			if (select.addEventListener) {
+				/* Only for modern browser and IE > 9 */
+				var stylecall = document.getElementById("stylecall");
+			
+				/* looking for stored style name */
+				var wampStyle = localStorage.getItem("wampStyle");
+			
+				if (wampStyle !== null) {
+					stylecall.setAttribute("href", "wampthemes/" + wampStyle + "/style.css");
+					selectedOption = document.getElementById(wampStyle);
+					selectedOption.setAttribute("selected", "selected");
+				} else {
+					localStorage.setItem("wampStyle","classic");
+					selectedOption = document.getElementById("classic");
+					selectedOption.setAttribute("selected", "selected");
+				}
+				/* Changing style when select change */
+			
+				select.addEventListener("change", function(){
+					var styleName = this.value;
+					stylecall.setAttribute("href", "wampthemes/" + styleName + "/style.css");
+					localStorage.setItem("wampStyle", styleName);
+				})
+			}
+		</script>
 	</head>
 
 	<body>
@@ -75,46 +101,47 @@ if (isset($_GET['phpinfo'])) {
 					<li>MariaDB 10</li><li>-</li>
 					<li>PHP 5 &amp; 7</li>
 				</ul>
-			</div>
-			<ul class="utility">
-				<li>Version <?php echo $c_wampVersion ?> - <?php echo $c_wampMode ?></li>
-				<li><?php
-                        // Language
-                        $langue = $wampConf['language'];
-                        $i_langues = glob('wamplangues/index_*.php');
-                        $languages = array();
-                        foreach ($i_langues as $value) {
-                            $languages[] = str_replace(array('wamplangues/index_','.php'), '', $value);
-                        }
-                        $langueget = (!empty($_GET['lang']) ? strip_tags(trim($_GET['lang'])) : '');
-                        if(in_array($langueget,$languages))
-                            $langue = $langueget;
+				<ul class="utility">
+					<li>Version <?php echo $c_wampVersion ?> - <?php echo $c_wampMode ?></li>
+					<li><?php
+						// Language
+						$langue = $wampConf['language'];
+						$i_langues = glob('wamplangues/index_*.php');
+						$languages = array();
+						foreach ($i_langues as $value) {
+							$languages[] = str_replace(array('wamplangues/index_','.php'), '', $value);
+						}
+						$langueget = (!empty($_GET['lang']) ? strip_tags(trim($_GET['lang'])) : '');
+						if(in_array($langueget,$languages))
+							$langue = $langueget;
 
-                        // Recherche des différentes langues disponibles
-                        $langueswitcher = '<form method="get" style="display:inline-block;"><select name="lang" id="langues" onchange="this.form.submit();">'."\n";
-                        $selected = false;
-                        foreach ($languages as $i_langue) {
-                            $langueswitcher .= '<option value="'.$i_langue.'"';
-                            if(!$selected && $langue == $i_langue) {
-                                $langueswitcher .= ' selected ';
-                                $selected = true;
-                            }
-                            $langueswitcher .= '>'.$i_langue.'</option>'."\n";
-                        }
-                        echo $langueswitcher.'</select></form>';
-                    ?><?php
-                        // Recherche des différents thèmes disponibles
-                        $styleswitcher = '<select id="themes">'."\n";
-                        $themes = glob('wampthemes/*', GLOB_ONLYDIR);
-                        foreach ($themes as $theme) {
-                            if (file_exists($theme.'/style.css')) {
-                                $theme = str_replace('wampthemes/', '', $theme);
-                                $styleswitcher .= '<option id="'.$theme.'">'.$theme.'</option>'."\n";
-                            }
-                        }
-                        echo $styleswitcher.'</select>'."\n";
-                    ?></li>
-			</ul>
+						// Recherche des différentes langues disponibles
+						$langueswitcher = '<form method="get" style="display:inline-block;"><select name="lang" id="langues" onchange="this.form.submit();">'."\n";
+						$selected = false;
+						foreach ($languages as $i_langue) {
+							$langueswitcher .= '<option value="'.$i_langue.'"';
+							if(!$selected && $langue == $i_langue) {
+								$langueswitcher .= ' selected ';
+								$selected = true;
+							}
+							$langueswitcher .= '>'.$i_langue.'</option>'."\n";
+						}
+						echo $langueswitcher.'</select></form>';
+					?></li>
+					<li><?php
+						// Recherche des différents thèmes disponibles
+						$styleswitcher = '<select id="themes">'."\n";
+						$themes = glob('wampthemes/*', GLOB_ONLYDIR);
+						foreach ($themes as $theme) {
+							if (file_exists($theme.'/style.css')) {
+								$theme = str_replace('wampthemes/', '', $theme);
+								$styleswitcher .= '<option id="'.$theme.'">'.$theme.'</option>'."\n";
+							}
+						}
+						echo $styleswitcher.'</select>'."\n";
+					?></li>
+				</ul>
+			</div>
 		</header>
 
 	<div class="config">

@@ -115,8 +115,8 @@ if(isset($wampConf['SupportMariaDB']) && $wampConf['SupportMariaDB'] =='on') {
 	$nbDBMS++;
 	$defaultDBMSMaria = ($wampConf['mariaPortUsed'] == '3306') ? "&nbsp;-&nbsp;".$langues['defaultDBMS'] : "";
 	$MariaDB = <<< EOF
-<dt>{$langues['versmaria']}</dt>
-  <dd>${c_mariadbVersion}&nbsp;-&nbsp;{$langues['mariaportUsed']}{$wampConf['mariaPortUsed']}{$defaultDBMSMaria}&nbsp;-&nbsp; <a href='http://{$langues['docmaria']}'>{$langues['documentation']} MariaDB</a></dd>
+		<dt>{$langues['versmaria']}</dt>
+  	<dd>${c_mariadbVersion}&nbsp;-&nbsp;{$langues['mariaportUsed']}{$wampConf['mariaPortUsed']}{$defaultDBMSMaria}&nbsp;-&nbsp; <a href='http://{$langues['docmaria']}'>{$langues['documentation']} MariaDB</a></dd>
 EOF;
 }
 
@@ -417,82 +417,85 @@ $pageContents = <<< EOPAGE
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width">
 		<link id="stylecall" rel="stylesheet" href="wampthemes/classic/style.css" />
-		<script defer src="themeswitch.js"></script>
 		<link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+
+		
 	</head>
 
 	<body>
-		<header id="head">
-			<div class="innerhead">
-				<h1>
-					<abbr title="Windows">W</abbr>
-					<abbr title="Apache">a</abbr>
-					<abbr title="MySQL/MariaDB">m</abbr>
-					<abbr title="PHP">p</abbr>
-					<abbr title="server WEB local">server</abbr>
-				</h1>
-				<ul>
-					<li>Apache 2.4</li>
-					<li>-</li>
-					<li>MySQL 5 &amp; 8</li>
-					<li>-</li>
-					<li>MariaDB 10</li>
-					<li>-</li>
-					<li>PHP 5 &amp; 7</li>
-				</ul>
-			</div>
-			<ul class="utility">
-				<li>Version ${c_wampVersion} - ${c_wampMode}</li>
-				<li>${langueswitcher}${styleswitcher}</li>
-			</ul>
-		</header>
-
-	<div class="config">
-		<div class="innerconfig">
-			<h2> {$langues['titreConf']} </h2>
-
-			<dl class="content">
-				<dt>{$langues['versa']}</dt>
-					<dd>${apacheVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues[$doca_version]}'>{$langues['documentation']}</a></dd>
-				<dt>{$langues['server']}</dt>
-					<dd>${server_software}&nbsp;-&nbsp;{$langues['portUsed']}{$ListenPorts}</dd>
-				<dt>{$langues['versp']}</dt>
-					<dd>${phpVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues['docp']}'>{$langues['documentation']}</a></dd>
-				<dt>{$langues['phpExt']}</dt>
-				<dd>
+		<div class="wrapper">
+			<header id="head">
+				<div class="innerhead">
+					<h1>
+						<abbr title="Windows">W</abbr>
+						<abbr title="Apache">a</abbr>
+						<abbr title="MySQL/MariaDB">m</abbr>
+						<abbr title="PHP">p</abbr>
+						<abbr title="Server WEB local">Server</abbr>
+					</h1>
 					<ul>
-						${phpExtContents}
+						<li>Apache 2.4</li>
+						<li>-</li>
+						<li>MySQL 5 &amp; 8</li>
+						<li>-</li>
+						<li>MariaDB 10</li>
+						<li>-</li>
+						<li>PHP 5 &amp; 7</li>
 					</ul>
-				</dd>
-				${DBMSTypes}
-			</dl>
-		</div>
-	</div>
+					<ul class="utility" style="display: flex">
+						<li>Version ${c_wampVersion} - ${c_wampMode}</li>
+						<li>${langueswitcher}</li>
+						<li>${styleswitcher}</li>
+					</ul>
+				</div>
+			</header>
 
-	<div class="divider1">&nbsp;</div>
+			<div class="config">
+				<div class="innerconfig">
+					<h2> {$langues['titreConf']} </h2>
 
-	<div class="alltools ${allToolsClass}">
-		<div class="inneralltools">
-			<div class="column">
-				<h2>{$langues['titrePage']}</h2>
-				<ul class="tools">
-					<li><a href="?phpinfo=-1">phpinfo()</a></li>
-					{$phpmyadminTool}
-					{$addVhost}
-				</ul>
+					<dl class="content">
+						<dt>{$langues['versa']}</dt>
+							<dd>${apacheVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues[$doca_version]}'>{$langues['documentation']}</a></dd>
+						<dt>{$langues['server']}</dt>
+							<dd>${server_software}&nbsp;-&nbsp;{$langues['portUsed']}{$ListenPorts}</dd>
+						<dt>{$langues['versp']}</dt>
+							<dd>${phpVersion}&nbsp;&nbsp;-&nbsp;<a href='http://{$langues['docp']}'>{$langues['documentation']}</a></dd>
+						<dt>{$langues['phpExt']}</dt>
+						<dd>
+							<ul>
+								${phpExtContents}
+							</ul>
+						</dd>
+						${DBMSTypes}
+					</dl>
+				</div>
 			</div>
-			<div class="column">
-				<h2>{$langues['txtProjet']}</h2>
-				<ul class="projects">
-					${projectContents}
-				</ul>
-			</div>
-			<div class="column">
-				<h2>{$langues['txtAlias']}</h2>
-				<ul class="aliases">
-					${aliasContents}
-				</ul>
-			</div>
+
+			<hr>
+
+			<div class="alltools ${allToolsClass}">
+				<div class="inneralltools">
+					<div class="column">
+						<h2>{$langues['titrePage']}</h2>
+						<ul class="tools">
+							<li><a href="?phpinfo=-1">phpinfo()</a></li>
+							{$phpmyadminTool}
+							{$addVhost}
+						</ul>
+					</div>
+					<div class="column">
+						<h2>{$langues['txtProjet']}</h2>
+						<ul class="projects">
+							${projectContents}
+						</ul>
+					</div>
+					<div class="column">
+						<h2>{$langues['txtAlias']}</h2>
+						<ul class="aliases">
+							${aliasContents}
+						</ul>
+					</div>
 EOPAGE;
 
 if($VirtualHostMenu == "on") {
@@ -514,14 +517,43 @@ if(!empty($error_content)) {
 }
 
 $pageContents .= <<< EOPAGEC
+				</div>
 			</div>
+
+			<hr class="invisible">
+
+			<ul id="foot">
+				<li><a href="{$langues['forumLink']}">{$langues['forum']}</a></li>
+			</ul>
+
+			<script>
+				var select = document.getElementById("themes");
+				if (select.addEventListener) {
+					/* Only for modern browser and IE > 9 */
+					var stylecall = document.getElementById("stylecall");
+				
+					/* looking for stored style name */
+					var wampStyle = localStorage.getItem("wampStyle");
+				
+					if (wampStyle !== null) {
+						stylecall.setAttribute("href", "wampthemes/" + wampStyle + "/style.css");
+						selectedOption = document.getElementById(wampStyle);
+						selectedOption.setAttribute("selected", "selected");
+					} else {
+						localStorage.setItem("wampStyle","classic");
+						selectedOption = document.getElementById("classic");
+						selectedOption.setAttribute("selected", "selected");
+					}
+					/* Changing style when select change */
+				
+					select.addEventListener("change", function(){
+						var styleName = this.value;
+						stylecall.setAttribute("href", "wampthemes/" + styleName + "/style.css");
+						localStorage.setItem("wampStyle", styleName);
+					})
+				}
+			</script>
 		</div>
-
-		<div class="divider2">&nbsp;</div>
-
-		<ul id="foot">
-			<li><a href="{$langues['forumLink']}">{$langues['forum']}</a></li>
-		</ul>
 	</body>
 </html>
 EOPAGEC;
